@@ -8,6 +8,10 @@ import { TodoSearch } from "../TodoSearch";
 import { Modal } from "../Modal";
 import { TodoForm } from "../TodoForm";
 
+import { TodosError } from "../TodosError";
+import { TodosLoading } from "../TodosLoading";
+import { EmptyTodos } from "../EmptyTodos";
+
 function AppUI() {
   const { error, loading, filterTodos, completeTodo, deleteTodo, openModal } =
     React.useContext(TodoContext);
@@ -19,9 +23,9 @@ function AppUI() {
       <TodoSearch />
 
       <TodoList>
-        {error && <p>Hubo un error..</p>}
-        {loading && <p>Estamos cargando, no desesperes..</p>}
-        {!loading && !filterTodos.length && <p>!Crea tu primer TODO¡</p>}
+        {error && <TodosError error={error}></TodosError>}
+        {loading && <TodosLoading />}
+        {!loading && !filterTodos.length && <EmptyTodos />}
 
         {filterTodos.map((todo) => (
           <TodoItem
